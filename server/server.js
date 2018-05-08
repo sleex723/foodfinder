@@ -1,38 +1,60 @@
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({ path: '../.env' });
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 5000;
 const axios = require('axios');
 const request = require('request');
+const rp = require('request-promise');
 
 // body-parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/search', (req, res) => {
-  console.log('i am in the backend', req.body);
-  console.log(process.env.YELP_API)
-  var options = { method: 'GET',
-  url: 'https://api.yelp.com/v3/businesses/search',
-  qs:
-   { term: 'delis',
-     location: req.body.zipcode,
-     limit: '3',
-     radius: '10000',
-     categories: 'restaurants',
-     sort_by: 'review_count'},
-  headers:
-   {
-     'Cache-Control': 'no-cache',
-     Authorization: `Bearer ${process.env.YELP_API}` } };
+app.post('/search', async (req, res) => {
+  try {
+    let results = [];
+    await req.body.data.forEach(async (category, index, array) => {
+      let options = await {
+        method: 'GET',
+        url: 'https://api.yelp.com/v3/businesses/search',
+        qs:
+          {
+            term: `${category}`,
+            location: `${req.body.zipcode}`,
+            limit: '15',
+            radius: '10000',
+            categories: 'restaurants',
+            sort_by: 'review_count'
+          },
+        headers:
+          {
+            'Cache-Control': 'no-cache',
+            Authorization: `Bearer ${process.env.YELP_API}`
+          },
+        json: true
+      };
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
+      await rp(options)
+        .then(function (data) {
+          // console.log(data)
+          results.push(data);
+          if(array.length === results.length) {
+            res.json(results)
+          }
+          // return data
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
 
-  console.log(body);
-});
+    })
+    // await console.log('results outside', results)
+    // res.json(results);
+  } catch (e) {
+    res.sendStatus(400);
+  }
 
 });
 

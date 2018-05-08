@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import styles from './Search.css';
 import SearchCategories from './SearchCategories/SearchCategories';
 import axios from 'axios';
+import Results from '../../Results/Results';
 
 class Search extends Component {
 	state = {
 		search: '',
 		zipcode: '',
 		categories: [],
+		yelpData: []
 	}
 
 	handleChange = e => {
@@ -42,17 +44,19 @@ class Search extends Component {
 
 		console.log(categories)
 		axios.post('/search', categories)
-		.then(function(response) {
-			console.log(response);
+		.then((response) => {
+			this.setState({
+				yelpData: response
+			})
 		})
-		.catch(function(err) {
+		.catch((err) => {
 			console.log(err);
 		})
 	}
 
 	render() {
 		return (
-      <div>
+			<div>
 			<div className={styles.Search}>
 				<div className={styles.Find}>Find</div>
 				<input
@@ -78,11 +82,11 @@ class Search extends Component {
 					<span class="glyphicon glyphicon-search" />
 				</button>
 			</div>
-      <div>
-        <SearchCategories categories={this.state.categories} removeCategory={this.removeCategory.bind(this)}/>
-      </div>
-      </div>
-		);
+				<div>
+					<SearchCategories categories={this.state.categories} removeCategory={this.removeCategory.bind(this)}/>
+				</div>
+			</div>
+		)
 	}
 }
 
