@@ -1,0 +1,23 @@
+.Categories {
+  display: flex;
+  flex-direction: row;
+  /* margin-top: 15px; */
+}
+
+.Categories .Category {
+  border-radius: 4px;
+  color: #fff;
+  background-color: #eb2b24;
+  border-color: #d43f3a;
+  /* display: inline-block; */
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.33333;
+  margin-left: 10px;
+  margin-right: 10px;
+}

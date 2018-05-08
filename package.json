@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/sleex89/foodfinder/issues"
   },
-  "homepage": "https://github.com/sleex89/foodfinder#readme"
+  "homepage": "https://github.com/sleex89/foodfinder#readme",
+  "dependencies": {}
 }
