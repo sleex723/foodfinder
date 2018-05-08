@@ -1,0 +1,19 @@
+{
+  "name": "foodfinder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleex89/foodfinder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sleex89/foodfinder/issues"
+  },
+  "homepage": "https://github.com/sleex89/foodfinder#readme"
+}
