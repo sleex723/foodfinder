@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Search.css';
 import SearchCategories from './SearchCategories/SearchCategories';
+import axios from 'axios';
 
 class Search extends Component {
 	state = {
@@ -31,7 +32,23 @@ class Search extends Component {
 				search: '',
 			});
 		}
-  }
+	}
+
+	handleOnClick = () => {
+		const categories = {
+			data: this.state.categories,
+			zipcode: this.state.zipcode
+		}
+
+		console.log(categories)
+		axios.post('/search', categories)
+		.then(function(response) {
+			console.log(response);
+		})
+		.catch(function(err) {
+			console.log(err);
+		})
+	}
 
 	render() {
 		return (
@@ -57,7 +74,7 @@ class Search extends Component {
 					placeholder="Enter a zipcode"
 					onChange={this.handleChange}
 				/>
-				<button className={styles.SearchButton}>
+				<button className={styles.SearchButton} onClick={this.handleOnClick}>
 					<span class="glyphicon glyphicon-search" />
 				</button>
 			</div>
