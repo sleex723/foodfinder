@@ -23,7 +23,7 @@ app.post('/search', async (req, res) => {
           {
             term: `${category}`,
             location: `${req.body.zipcode}`,
-            limit: '15',
+            limit: '6',
             radius: '10000',
             categories: 'restaurants',
             sort_by: 'review_count'
@@ -38,8 +38,12 @@ app.post('/search', async (req, res) => {
 
       await rp(options)
         .then(function (data) {
-          // console.log(data)
-          results.push(data);
+          let categoryName = options.qs.term
+          let info = {
+            category: categoryName,
+            restaurants: data
+          }
+          results.push(info);
           if(array.length === results.length) {
             res.json(results)
           }

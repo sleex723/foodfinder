@@ -1,0 +1,4 @@
+.BusinessesContainer {
+  display: flex;
+  flex-direction: row;
+}

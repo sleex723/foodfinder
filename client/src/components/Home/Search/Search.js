@@ -8,8 +8,7 @@ class Search extends Component {
 	state = {
 		search: '',
 		zipcode: '',
-		categories: [],
-		yelpData: []
+		categories: []
 	}
 
 	handleChange = e => {
@@ -45,9 +44,8 @@ class Search extends Component {
 		console.log(categories)
 		axios.post('/search', categories)
 		.then((response) => {
-			this.setState({
-				yelpData: response
-			})
+			this.props.view('loading');
+			this.props.getData(response);
 		})
 		.catch((err) => {
 			console.log(err);
