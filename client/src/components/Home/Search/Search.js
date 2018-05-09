@@ -12,9 +12,11 @@ class Search extends Component {
 	}
 
 	handleChange = e => {
-		this.setState({
-			[e.target.name]: e.target.value,
-		});
+		if (e.target.value !== ' ') {
+			this.setState({
+				[e.target.name]: e.target.value,
+			});
+		}
 	}
 
 	removeCategory = category => {
@@ -25,15 +27,16 @@ class Search extends Component {
 	}
 
 	handleSearchCategories = e => {
-		if (e.key === 'Enter' || e.charCode === 32) {
+
+		if (e.key === 'Enter' || (e.charCode === 32 && this.state.search !== '')) {
 			this.setState({
 				categories: [...this.state.categories, this.state.search],
-			});
-			this.setState({
 				search: '',
 			});
 		}
 	}
+
+
 
 	handleOnClick = () => {
 		const categories = {
@@ -41,7 +44,6 @@ class Search extends Component {
 			zipcode: this.state.zipcode
 		}
 
-		console.log(categories)
 		axios.post('/search', categories)
 		.then((response) => {
 			this.props.view('loading');
@@ -71,7 +73,6 @@ class Search extends Component {
 					className={styles.FormCategory}
 					type="text"
 					name="zipcode"
-					onKeyPress={this.handleSearchCategories}
 					value={this.state.zipcode}
 					placeholder="Enter a zipcode"
 					onChange={this.handleChange}
