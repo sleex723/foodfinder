@@ -3,10 +3,17 @@ dotenv.config({ path: '../.env' });
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 5000;
 const axios = require('axios');
 const request = require('request');
 const rp = require('request-promise');
+
+const port = process.env.PORT || 5000;
+
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+	app.use(express.static('client/build'));
+} else {
+	app.use(express.static(__dirname + '/../client/build'));
+}
 
 // body-parser middleware
 app.use(bodyParser.json());
