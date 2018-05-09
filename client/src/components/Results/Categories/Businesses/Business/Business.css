@@ -1,9 +1,10 @@
-.ImageContainer {
+.BusinessContainer .ImageContainer {
   height: 200px;
   width: auto;
 }
 
-.BusinessImg {
+.BusinessContainer .BusinessImg {
+  height: 200px;
   width: 100%;
   margin-top: 20px;
 }
@@ -11,4 +12,16 @@
 .BusinessContainer {
   height: 300px;
   padding: 20px;
+}
+
+.BusinessContainer .BusinessName {
+  font-weight: bold;
+}
+
+.BusinessContainer .Stars {
+  color: rgb(126, 126, 18);
+}
+
+.BusinessContainer .rating {
+  color: black;
 }

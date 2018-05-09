@@ -42,7 +42,7 @@ class Home extends Component {
     }
 
 		if (this.state.view === 'results' && this.state.yelpData !== []) {
-			return <Results categories={this.state.yelpData} />;
+			return <Results categories={this.state.yelpData} view={this.handleChangeView}/>;
 		}
 	}
 }
